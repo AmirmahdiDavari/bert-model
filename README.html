@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایبر حس</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+
+        body {
+            font-family: 'Vazir', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafa;
+            text-align: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .search-container {
+            position: relative;
+            width: 50%;
+            margin: 40px auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            border: 2px solid #888;
+            border-radius: 30px;
+            text-align: center;
+            direction: rtl;
+            font-size: 18px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #66b3ff;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #888;
+        }
+
+        .suggestions {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+            text-align: right;
+            width: 100%;
+            max-width: 400px;
+            margin: 10px auto;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .suggestions li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .suggestions li:hover {
+            background-color: #f0f0f0;
+        }
+
+        .error-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>سایبر حس</div>
+        <div>منابع داده | مانیتورینگ | دیده‌بان سایبری | پشتیبانی</div>
+        <div>FA 🌍</div>
+    </div>
+
+    <h2>جستجو در سایت</h2>
+    <div class="search-container">
+        <div style="position: relative;">
+            <input type="text" class="search-box" placeholder="عبارت مورد نظر را وارد کنید...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <ul class="suggestions"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchBox = document.querySelector(".search-box");
+            const suggestionsContainer = document.querySelector(".suggestions");
+
+            searchBox.addEventListener("keyup", function () {
+                let query = searchBox.value.trim();
+
+                // فقط وقتی که تعداد کاراکترهای ورودی بیش از ۲ باشد جستجو انجام شود
+                if (query.length > 2) {
+                    fetchSuggestions(query);
+                } else {
+                    suggestionsContainer.innerHTML = "";
+                }
+            });
+
+            function fetchSuggestions(query) {
+                fetch(`/search/?query=${encodeURIComponent(query)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("خطا در دریافت اطلاعات از سرور!");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        displaySuggestions(data.suggestions);
+                    })
+                    .catch(error => {
+                        showPopupError(error.message);
+                        console.error("خطا در دریافت داده‌ها:", error);
+                    });
+            }
+
+            function displaySuggestions(suggestions) {
+                suggestionsContainer.innerHTML = ""; // پاک کردن پیشنهادات قبلی
+
+                if (suggestions.length === 0) {
+                    suggestionsContainer.innerHTML = "<li>هیچ پیشنهادی یافت نشد</li>";
+                    return;
+                }
+
+                suggestions.slice(0, 5).forEach(suggestion => {
+                    let li = document.createElement("li");
+                    li.textContent = suggestion.name;
+                    li.onclick = () => alert(`مورد انتخابی: ${suggestion.name}`);
+                    suggestionsContainer.appendChild(li);
+                });
+            }
+
+            function showPopupError(message) {
+                let popup = document.createElement("div");
+                popup.className = "error-popup";
+                popup.textContent = message;
+                document.body.appendChild(popup);
+
+                // بعد از ۵ ثانیه پاپ‌آپ حذف شود
+                setTimeout(() => {
+                    popup.remove();
+                }, 5000);
+            }
+        });
+    </script>
+
+</body>
+</html>
