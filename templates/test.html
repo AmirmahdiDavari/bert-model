@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<html lang="fa" style="background-color: black">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحه اصلی</title>
+    <title>سایبرحس</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Tajawal', sans-serif;
             text-align: center;
             margin: 50px;
         }
-        h1 {
-            color: #007bff;
+        .search-box {
+            width: 66%;
+            padding: 12px;
+            border: 2px solid #888;
+            border-radius: 5px;
+            text-align: right;
+        }
+        h2 {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
         }
     </style>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
-    <h1 style="background-color: aliceblue">به Flask خوش آمدید!</h1>
-    <p style="background-color: aliceblue">این یک صفحه HTML است که با Flask نمایش داده شده است.</p>
+    <h2>جستجو در سایت</h2>
+    <input type="text" class="search-box" placeholder="عبارت مورد نظر را وارد کنید..." onkeyup="checkWords()">
 </body>
 </html>
