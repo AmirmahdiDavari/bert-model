@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>احساس‌نگار</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+
+        body {
+            font-family: 'Vazir', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            text-align: center;
+            background-image: url('../static/transparent-home.gif');
+            background-size: 80%;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            position: relative;
+            width: 50%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            border: 2px solid #888;
+            border-radius: 30px;
+            text-align: center;
+            direction: rtl;
+            font-family: 'Vazir', sans-serif;
+            font-size: 18px;
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            border: 2px solid #888;
+            border-radius: 30px;
+            text-align: center;
+            font-family: 'Vazir', sans-serif;
+            font-size: 18px;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #888;
+        }
+
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background-color: #e0f7f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .stat-item {
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 150px;
+        }
+
+        .suggestions {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .suggestions li {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+            margin-top: 12px ;
+            border: 2px solid #888;
+            border-radius: 30px;
+            text-align: center;
+            font-family: 'Vazir', sans-serif;
+            font-size: 18px;
+
+        }
+        .error-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+}
+
+        .suggestions li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div>احساس‌ نگار</div>
+    <div>منابع داده | مانیتورینگ | پشتیبانی</div>
+</div>
+<br>
+<br>
+<br>
+<h2 style="text-align: center">جستجو کنید و بهترین انتخاب را داشته باشید </h2>
+<div class="search-container">
+    <div class="search-box-wrapper">
+        <input type="text" class="search-box" placeholder="عبارت مورد نظر را وارد کنید..." onkeyup="checkWords()">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+    <ul class="suggestions"></ul>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="fa" dir="rtl">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>سایبر حس</title>-->
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">-->
+
+<!--    <style>-->
+<!--        @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');-->
+<!--        body {-->
+<!--            font-family: 'Vazir', sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background-color: #f8fafa;-->
+<!--            text-align: center;-->
+<!--            background-image: url('transparent-home.gif');-->
+<!--            background-size: 90%;-->
+<!--            background-position: center;-->
+<!--            background-repeat: no-repeat;-->
+<!--            height: 100vh;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: 'Vazir', sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background-color: #f8fafa;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .header {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            padding: 20px;-->
+<!--            background-color: white;-->
+<!--            box-shadow: 0 2px 5px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .search-container {-->
+<!--            position: relative;-->
+<!--            width: 50%;-->
+<!--            margin: 40px auto;-->
+<!--        }-->
+
+<!--        .search-box {-->
+<!--            width: 100%;-->
+<!--            padding: 12px;-->
+<!--            padding-right: 40px;-->
+<!--            border: 2px solid #888;-->
+<!--            border-radius: 30px;-->
+<!--            text-align: center;-->
+<!--            direction: rtl;-->
+<!--            font-size: 18px;-->
+<!--        }-->
+
+<!--        .search-box:focus {-->
+<!--            outline: none;-->
+<!--            border-color: #66b3ff;-->
+<!--        }-->
+
+<!--        .search-icon {-->
+<!--            position: absolute;-->
+<!--            top: 50%;-->
+<!--            right: 10px;-->
+<!--            transform: translateY(-50%);-->
+<!--            font-size: 20px;-->
+<!--            color: #888;-->
+<!--        }-->
+
+<!--        .suggestions {-->
+<!--            list-style-type: none;-->
+<!--            padding: 0;-->
+<!--            text-align: right;-->
+<!--            width: 100%;-->
+<!--            max-width: 400px;-->
+<!--            margin: 10px auto;-->
+<!--            background: white;-->
+<!--            border-radius: 5px;-->
+<!--            box-shadow: 0 2px 5px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .suggestions li {-->
+<!--            width: 100%;-->
+<!--            margin-top: 10px;-->
+<!--            padding: 12px 40px 12px 12px;-->
+<!--            border: 2px solid #888;-->
+<!--            border-radius: 30px;-->
+<!--            text-align: center;-->
+<!--            direction: rtl;-->
+<!--            font-size: 18px;-->
+<!--        }-->
+
+<!--        .suggestions li:hover {-->
+<!--            background-color: #f0f0f0;-->
+<!--        }-->
+
+<!--        .error-popup {-->
+<!--            position: fixed;-->
+<!--            bottom: 20px;-->
+<!--            right: 20px;-->
+<!--            background-color: rgba(255, 0, 0, 0.8);-->
+<!--            color: white;-->
+<!--            padding: 15px;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 16px;-->
+<!--            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);-->
+<!--            z-index: 1000;-->
+<!--            animation: fadeIn 0.5s ease-in-out;-->
+<!--        }-->
+
+<!--        @keyframes fadeIn {-->
+<!--            from { opacity: 0; transform: translateY(10px); }-->
+<!--            to { opacity: 1; transform: translateY(0); }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--    <div class="header">-->
+<!--        <div>سایبر حس</div>-->
+<!--        <div>منابع داده | مانیتورینگ | پشتیبانی</div>-->
+<!--        <div>FA 🌍</div>-->
+<!--    </div>-->
+
+<!--    <h2>جستجو در سایت</h2>-->
+<!--    <div class="search-container">-->
+<!--        <div style="position: relative;">-->
+<!--            <input type="text" class="search-box" placeholder="عبارت مورد نظر را وارد کنید...">-->
+<!--            <i class="fas fa-search search-icon"></i>-->
+<!--        </div>-->
+<!--        <ul class="suggestions"></ul>-->
+<!--    </div>-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--    <script src="script.js"></script>-->
+<!--</body>-->
+<!--</html>-->

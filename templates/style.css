@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+
+body {
+    font-family: 'Vazir', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #efeaea;
+    text-align: center;
+    background-image: url('../static/transparent-home.gif');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-container {
+    position: relative;
+    width: 50%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.search-box-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.search-box {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    border: 2px solid #888;
+    border-radius: 30px;
+    text-align: center;
+    font-family: 'Vazir', sans-serif;
+    font-size: 18px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #888;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: #e0f7f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.stat-item {
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 150px;
+}
+
+.suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.suggestions li {
+    width: 100%;
+    padding: 12px 40px 12px 12px;
+    margin-top: 12px;
+    border: 2px solid #888;
+    border-radius: 30px;
+    text-align: center;
+    font-family: 'Vazir', sans-serif;
+    font-size: 18px;
+}
+
+.suggestions li:hover {
+    background-color: #f0f0f0;
+}
+
+.error-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
