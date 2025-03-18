@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 suggestionsContainer.innerHTML = "<li>هیچ پیشنهادی یافت نشد</li>";
                 return;
             }
-            console.log(suggestions.slice(0, 5))
-            suggestions.slice(0, 5).forEach(suggestion => {
+            console.log(suggestions.slice(0, 20))
+            suggestions.slice(0, 20).forEach(suggestion => {
                 let li = document.createElement("li");
                 li.textContent = suggestion.name;
                 li.onclick = () => alert(`مورد انتخابی: ${suggestion.name}`);
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // داده‌های نمونه به جای فراخوانی وب سرویس
 const sampleData = {
-    "دیجی‌کالا": [5000, 1200],
+    "دیجی‌کالا": [1283496, 6156289],
     "دیجی‌استایل": [3000, 800],
     "خانومی": [2000, 600]
 };
@@ -124,3 +124,31 @@ function loadData() {
 
 // بارگذاری داده‌ها هنگام بارگذاری صفحه
 window.onload = loadData;
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://127.0.0.1:8000/market_report/")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("مشکلی در دریافت داده‌ها رخ داده است");
+            }
+            return response.json();
+        })
+        .then(data => {
+            const container = document.getElementById("resource-container");
+            container.innerHTML = ""; // پاک کردن محتوای قبلی
+
+            data.forEach(item => {
+                const resourceDiv = document.createElement("div");
+                resourceDiv.classList.add("resource");
+
+                resourceDiv.innerHTML = `
+                    <h3>${item.market_name}</h3>
+                    <p>${item.total_products}</p>
+                    <p>${item.total_reviews}</p>
+                `;
+                container.appendChild(resourceDiv);
+            });
+        })
+        .catch(error => {
+            console.error("خطا در دریافت اطلاعات: ", error);
+        });
+});
