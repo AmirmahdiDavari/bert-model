@@ -60,3 +60,67 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 3000);
         }
         });
+
+// // تابع برای بارگذاری داده‌ها از وب سرویس
+// async function loadData() {
+//     try {
+//         const response = await fetch('get_mraket_analisist');
+//         const data = await response.json();
+//
+//         const container = document.getElementById('resource-container');
+//         container.innerHTML = ''; // پاک کردن محتوای قبلی
+//         const  data={
+//             "دیجی‌کالا": [5000, 1200],
+//             "دیجی‌استایل": [3000, 800],
+//             "خانومی": [2000, 600]} ;
+//
+//         // اضافه کردن منابع به صفحه
+//         for (const brand in data) {
+//             const [productCount, commentCount] = data[brand];
+//             const resourceDiv = document.createElement('div');
+//             resourceDiv.className = 'resource';
+//             resourceDiv.innerHTML = `
+//                 <img src="../static/${brand}.png" alt="${brand}">
+//                 <h3>${brand}</h3>
+//                 <div class="stats">تعداد محصولات: ${productCount}</div>
+//                 <div class="stats">تعداد کامنت‌ها: ${commentCount}</div>
+//             `;
+//             container.appendChild(resourceDiv);
+//         }
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//     }
+// }
+//
+// // بارگذاری داده‌ها هنگام بارگذاری صفحه
+// window.onload = loadData;
+
+// داده‌های نمونه به جای فراخوانی وب سرویس
+const sampleData = {
+    "دیجی‌کالا": [5000, 1200],
+    "دیجی‌استایل": [3000, 800],
+    "خانومی": [2000, 600]
+};
+
+// تابع برای بارگذاری داده‌ها
+function loadData() {
+    const container = document.getElementById('resource-container');
+    container.innerHTML = ''; // پاک کردن محتوای قبلی
+
+    // اضافه کردن منابع به صفحه
+    for (const brand in sampleData) {
+        const [productCount, commentCount] = sampleData[brand];
+        const resourceDiv = document.createElement('div');
+        resourceDiv.className = 'resource';
+        resourceDiv.innerHTML = `
+            <img src="../static/${brand}.png" alt="${brand}">
+            <h3>${brand}</h3>
+            <div class="stats">تعداد محصولات: ${productCount}</div>
+            <div class="stats">تعداد کامنت‌ها: ${commentCount}</div>
+        `;
+        container.appendChild(resourceDiv);
+    }
+}
+
+// بارگذاری داده‌ها هنگام بارگذاری صفحه
+window.onload = loadData;

@@ -3,7 +3,7 @@ import json
 import datetime
 from fastapi import FastAPI, Request
 from database import products_collection, reviews_collection
-from sentiment_model import analyze_sentiment
+# from sentiment_model import analyze_sentiment
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -30,6 +30,8 @@ app.add_middleware(
 )
 
 class ProductSchema(BaseModel):
+    # id: str
+    product_real_id: str
     name: str
     category: str
     store_name: str
@@ -46,9 +48,24 @@ class ReviewSchema(BaseModel):
 
 @app.post("/add_product/")
 async def add_product(product: ProductSchema):
+
+    print(product)
+    print('[[[[[[[[[[[[[[[[[product]]]]]]]]]]]]]]]]]')
     new_product = await products_collection.insert_one(product.dict())
     return {"id": str(new_product.inserted_id)}
 
+@app.post("/add_review/")
+async def add_review(review: ReviewSchema):
+    # sentiment = await analyze_sentiment(review.review_text)
+    new_review = {
+        "product_id": review.product_id,
+        "store_name": review.store_name,
+        "review_text": review.review_text,
+        "sentiment": "sentiment",
+        "created_at": datetime.datetime.utcnow()
+    }
+    await reviews_collection.insert_one(new_review)
+    return {"message": "Review added successfully", "sentiment": "sentiment"}
 
 @app.get("/search/")
 async def search_products(query: str):
@@ -56,21 +73,6 @@ async def search_products(query: str):
     products = await cursor.to_list(length=10)
     print([{"id": str(p["_id"]), "name": p["name"], "store": p["store_name"]} for p in products])
     return [{"id": str(p["_id"]), "name": p["name"], "store": p["store_name"]} for p in products]
-
-
-@app.post("/add_review/")
-async def add_review(review: ReviewSchema):
-    sentiment = await analyze_sentiment(review.review_text)
-    new_review = {
-        "product_id": review.product_id,
-        "store_name": review.store_name,
-        "review_text": review.review_text,
-        "sentiment": sentiment,
-        "created_at": datetime.datetime.utcnow()
-    }
-    await reviews_collection.insert_one(new_review)
-    return {"message": "Review added successfully", "sentiment": sentiment}
-
 
 @app.get("/product_reviews/{product_id}/{store_name}/")
 async def get_product_reviews(product_id: str, store_name: str):

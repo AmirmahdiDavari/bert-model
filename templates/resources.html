@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منابع داده</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">-->
+        <link href="https://fonts.googleapis.com/css2?family=Iranian+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Iranian Sans', sans-serif; /* تغییر فونت به Iranian Sans */
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            text-align: center;
+            position: relative; /* برای استفاده از position:absolute در دکمه */
+        }
+
+        .header {
+            padding: 10px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .resource {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: calc(33% - 40px); /* سه ستون با فاصله */
+            box-sizing: border-box; /* برای محاسبه صحیح عرض */
+        }
+
+        .resource img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .resource h3 {
+            margin: 10px 0;
+        }
+
+        .resource p {
+            color: #555;
+        }
+
+        .back-button {
+            position: absolute; /* موقعیت دکمه به صورت مطلق */
+            top: 20px; /* فاصله از بالا */
+            left: 20px; /* فاصله از چپ */
+            padding: 10px;
+            background-color: #007bff; /* رنگ پس‌زمینه دکمه */
+            color: white; /* رنگ متن دکمه */
+            text-decoration: none; /* حذف زیرخط */
+            border-radius: 5px; /* گوشه‌های گرد */
+            transition: background-color 0.3s; /* انیمیشن تغییر رنگ */
+        }
+
+        .back-button:hover {
+            background-color: #ffffff; /* رنگ پس‌زمینه دکمه در حالت هاور */
+        }
+
+        .back-icon {
+            font-size: 24px; /* اندازه آیکون */
+            color: #000000; /* رنگ آیکون */
+            text-decoration: none; /* حذف زیرخط */
+        }
+
+        @media (max-width: 768px) {
+            .resource {
+                width: calc(50% - 40px); /* دو ستون در صفحه‌های کوچک‌تر */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .resource {
+                width: 100%; /* یک ستون در صفحه‌های بسیار کوچک */
+            }
+        }
+    </style>
+</head>
+<body>
+<a href="index.html" class="back-button">
+    <i class="fas fa-arrow-left back-icon"></i> <!-- آیکون بازگشت -->
+</a>
+<div class="header">
+    <h2>منابع داده</h2>
+</div>
+
+<div class="container">
+    <div class="resource">
+        <img src="../static/digikala.png" alt="دیجی‌کالا">
+        <h3>دیجی‌کالا</h3>
+        <p>دیجی کالا سال‌ها است که به انتخاب اول بسیاری از خریداران اینترنتی تبدیل شده است. دیجی کالا به عنوان بزرگ‌ترین و معتبرترین فروشگاه آنلاین ایران، شناخته‌شده‌ترین فروشگاه نیز محسوب می‌شود. این فروشگاه آنلاین نه‌تنها گسترده‌ترین تنوع کالا را در دسته‌بندی‌های مختلف ارائه می‌دهد، بلکه با خدمات بی‌نظیر، سرعت ارسال بالا، ضمانت اصل بودن کالا و پشتیبانی حرفه‌ای، استاندارد جدیدی در خرید اینترنتی ایران تعریف کرده است. این فروشگاه با سال‌ها تجربه و اعتماد مشتریان، کامل‌ترین و بهترین گزینه برای خرید آنلاین در ایران محسوب می‌شود.</p>
+    </div>
+
+    <div class="resource">
+        <img src="../static/digistyle.png" alt="دیجی‌استایل">
+        <br>
+        <br>
+        <br>
+        <h3>دیجی‌استایل</h3>
+        <p>فروشگاه اینترنتی مد و لباس دیجی‌استایل، پس از تجربه‌ی موفق فروشگاه اینترنتی دیجی‌کالا به صورت تخصصی پا به عرصه مد، پوشاک و سبک زندگی گذاشت تا همان تجربه‌ی شیرین، در قالبی نو تکرار شود. در دیجی ‌استایل می‌توانید همه آنچه مرتبط با مد و پوشاک از انواع لباس زنانه، لباس مردانه و لباس بچگانه گرفته تا کیف و کفش و اکسسوری را با تخفیف ویژه در حراج ها، پیدا کنید.</p>
+    </div>
+
+    <div class="resource">
+        <img src="../static/khanomi1.png" alt="خانومی">
+        <br>
+        <br>
+        <br>
+        <h3>خانومی</h3>
+        <p>فروشگاه اینترنتی خانومی از سال 1392 فعالیت خود را آغاز کرده و نزدیک به یک دهه از فعالیت پر فراز و نشیبش می‌گذرد. مسیر این برند نام آشنا برای زنان سرزمین‌مان از یک شبکه اجتماعی تا یک فروشگاه آنلاین، نشان از عزم ما و نیاز مخاطبان داشته است. خانومی به عنوان اولین و جامع‌ترین فروشگاه اینترنتی تخصصی آرایشی و بهداشتی و نماینده رسمی بیش از 250 برند، مجموعه‌ای کامل از بهترین محصولات آرایشی و بهداشتی را در اختیار مشتریان قرار داده و بزرگترین فروشگاه آنلاین معتبر آرایشی و بهداشتی شده است.</p>
+    </div>
+</div>
+
+</body>
+</html>
