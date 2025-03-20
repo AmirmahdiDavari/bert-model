@@ -1,4 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorDatabase
+from typing import Optional
 
 from models import Product, Review
 import datetime
@@ -33,6 +34,11 @@ async def read_root(request: Request):
     return templates.TemplateResponse("resources.html", {"request": request})
 
 
+@app.get("/product")
+async def read_root(request: Request):
+    return templates.TemplateResponse("product.html", {"request": request})
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # اجازه دسترسی به همه منابع
@@ -41,16 +47,16 @@ app.add_middleware(
     allow_headers=["*"],  # اجازه استفاده از همه هدرها
 )
 
-
 class ProductSchema(BaseModel):
-    product_real_id: str
-    name: str
-    category: str
-    store_name: str
-    price: float
-    rating: float
-    total_reviews: int
-    market_id: int
+    product_real_id: Optional[str] = None
+    name: Optional[str] = None
+    category: Optional[str] = None
+    store_name: Optional[str] = None
+    price: Optional[float] = None
+    rating: Optional[float] = None
+    total_reviews: Optional[int] = None
+    image: Optional[str] = None
+    market_id: Optional[int] = None
 
 
 class ReviewSchema(BaseModel):
@@ -116,15 +122,26 @@ async def add_review(review: ReviewSchema):
 async def search_products(query: str):
     cursor = products_collection.find({"name": {"$regex": query, "$options": "i"}}).limit(10)
     products = await cursor.to_list(length=10)
-    print([{"id": str(p["_id"]), "name": p["name"], "store": p["store_name"]} for p in products])
-    return [{"id": str(p["_id"]), "name": p["name"], "store": p["store_name"]} for p in products]
+    print([{"id": str(p["_id"]), "name": p["name"],"product_real_id": p["product_real_id"], "store": p["store_name"]} for p in products])
+    return [{"id": str(p["_id"]), "name": p["name"],"product_real_id": p["product_real_id"], "store": p["store_name"]} for p in products]
 
 
 @app.get("/product_reviews/{product_id}/{store_name}/")
 async def get_product_reviews(product_id: str, store_name: str):
-    cursor = reviews_collection.find({"product_id": product_id, "store_name": store_name})
-    reviews = await cursor.to_list(length=100)
-    return [{"text": r["review_text"], "sentiment": r["sentiment"]} for r in reviews]
+    cursor = reviews_collection.find({"product_id": product_id})
+    reviews = await cursor.to_list(length=None)
+    print([{"text": r["review_text"], "sentiment": r["sentiment"]} for r in reviews])
+    return [{"text": r["review_text"],"store_name": r["store_name"], "sentiment": r["sentiment"]} for r in reviews]
+
+
+@app.get("/product/{product_id}/", response_model=ProductSchema)
+async def get_product_detail(product_id: str):
+    product = await products_collection.find_one({"product_real_id": str(product_id)})
+
+    if not product:
+        raise HTTPException(status_code=404, detail="محصول یافت نشد!")
+    print(ProductSchema(**product))
+    return ProductSchema(**product)
 
 
 @app.get("/sentiment_chart/{product_id}/{store_name}/")
@@ -137,6 +154,7 @@ async def sentiment_chart(product_id: str, store_name: str):
         sentiment_count[review["sentiment"]] += 1
 
     return sentiment_count
+
 
 if __name__ == "__main__":
     import uvicorn
